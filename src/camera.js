@@ -22,10 +22,24 @@ import {
   drawSkeleton,
   drawBoundingBox
 } from './demo_util';
+import MoscaMqttServer from './mqttsrv/mosca_mqtt_srv';
 
 import PoseSrvProxy from './websocket/pose-srv-proxy';
 
 let poseProxy = new PoseSrvProxy();
+
+/**
+ * This fn will be called when the local MQTT srv is operational.
+ */
+function mqqtSrvRunning() {
+  console.log('mqqtSrvRunning called');
+  poseProxy.connectToMqttSrv();
+}
+
+let moscaMqttServer = new MoscaMqttServer();
+moscaMqttServer.test('Hejsan');
+moscaMqttServer.setConnectCallbackFn(mqqtSrvRunning);
+moscaMqttServer.startMqttSrv();
 
 const videoWidth = 600;
 const videoHeight = 500;

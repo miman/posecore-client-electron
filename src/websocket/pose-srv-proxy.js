@@ -12,9 +12,7 @@ const uuidv4 = require('uuid/v4');
 
 // mqttClient.subscribe("posetracking/user/device-id/pose-event", {qos:0});
 
-const cloudMqttUrl = 'mqtts://m24.cloudmqtt.com:28049';
-const cloudMqttUsername = 'TODO_REPLACE';
-const cloudMqttPassword = 'TODO_REPLACE';
+const localMqttUrl = 'mqtt://localhost:1883';
 
   /**
    * This is a websocket class that Implements the logic according for thsi connection to the server.
@@ -30,25 +28,32 @@ const cloudMqttPassword = 'TODO_REPLACE';
       this.useMqtt = true;
       this.useWebsocket = false;
       
-      this.deviceId = 'WebClient_1';
-      if (this.useMqtt) {
-        this.mqttClient = new MqttConnection('POSE_CLIENT_' + uuidv4());
-        this.mqttClient.username = cloudMqttUsername;
-        this.mqttClient.password = cloudMqttPassword;
-        this.mqttClient.connectToMqttSrv(cloudMqttUrl);
-      }
-      
-      if (this.useWebsocket) {
-        this.ws = new WebSocketConnection();
-      // this.ws.initializeSocket('ws://localhost:8111');
-        this.ws.initializeSocket('wss://posesrv.thorman.eu/ws/');
-      }
+      this.deviceId = 'PosenetClient';
       
       this.sendPoseServerInitialized = this.sendPoseServerInitialized.bind(this);
       this.sendPoseUpdateToSrv = this.sendPoseUpdateToSrv.bind(this);
       this.convertPoseEvent = this.convertPoseEvent.bind(this);
+      this.connectToMqttSrv = this.connectToMqttSrv.bind(this);
     };
   
+    connectToMqttSrv() {
+        console.log('Connecting to communication channel');
+        if (this.useMqtt) {
+            console.log('Connecting to MQTT srv: ' + localMqttUrl);
+            this.mqttClient = new MqttConnection('POSE_CLIENT_' + uuidv4());
+            this.mqttClient.username = '';
+            this.mqttClient.password = '';
+            this.mqttClient.connectToMqttSrv(localMqttUrl);
+          }
+          
+          if (this.useWebsocket) {
+            console.log('Connecting to Websocket');
+            this.ws = new WebSocketConnection();
+          // this.ws.initializeSocket('ws://localhost:8111');
+            this.ws.initializeSocket('wss://posesrv.thorman.eu/ws/');
+          }
+    }
+
     sendPoseServerInitialized(guiState) {
         let msg = new MsgHeader();
         msg.type = POSE_SRV_INITILIZED;
@@ -57,11 +62,15 @@ const cloudMqttPassword = 'TODO_REPLACE';
         msg.payload = guiState;
       
         if (this.useWebsocket) {
-            this.ws.sendMsg(msg);
+            if (this.ws !== null) {
+                this.ws.sendMsg(msg);
+            }
         }
       
         if (this.useMqtt) {
-            this.mqttClient.sendMsg(msg, 'posetracking/${ClientId}/' + this.deviceId + '/${SessionId}/pose-settings');
+            if (this.mqttClient !== null) {
+                this.mqttClient.sendMsg(msg, 'posetracking/${ClientId}/' + this.deviceId + '/${SessionId}/pose-settings');
+            }
         }
       }
       
@@ -91,11 +100,15 @@ const cloudMqttPassword = 'TODO_REPLACE';
         msg.payload = poseEvent;
       
         if (this.useWebsocket) {
-            this.ws.sendMsg(msg);
+            if (this.ws !== null) {
+                this.ws.sendMsg(msg);
+            }
         }
         
         if (this.useMqtt) {
-            this.mqttClient.sendMsg(msg, "posetracking/${ClientId}/" + this.deviceId + "/${SessionId}/pose-event");
+            if (this.mqttClient !== null) {
+                this.mqttClient.sendMsg(msg, "posetracking/${ClientId}/" + this.deviceId + "/${SessionId}/pose-event");
+            }
         }
       }
       
