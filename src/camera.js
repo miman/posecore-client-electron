@@ -25,8 +25,16 @@ import {
 import MoscaMqttServer from './mqttsrv/mosca_mqtt_srv';
 
 import PoseSrvProxy from './websocket/pose-srv-proxy';
+import BroadcastService from './broadcast/broadcast-service'
 
-let poseProxy = new PoseSrvProxy();
+let broadcastService = new BroadcastService();
+broadcastService.initialize(45458, 45459);
+
+let poseProxy = new PoseSrvProxy('PosnetClient', poseSrvConnectedCallback);
+
+function poseSrvConnectedCallback() {
+  broadcastService.broadcastSrvSettings();
+}
 
 /**
  * This fn will be called when the local MQTT srv is operational.
