@@ -2,9 +2,7 @@
 var dgram = require('dgram');
 var dns = require('dns');
 var os = require('os');
-// var ip = require("ip");
 
-// import Message from './msg';
 import {
     mqttSrvInfoReqTypeStr
 } from './mqtt-srv-info-request';
@@ -36,7 +34,7 @@ class BroadcastService {
         this.broadcastSrvSettings = this.broadcastSrvSettings.bind(this);
         this.retrieveLocalIp = this.retrieveLocalIp.bind(this);
         this.broadcastMessage = this.broadcastMessage.bind(this);
-        this.localIpRetrieved = this.localIpRetrieved.bind(this);
+        this.handleInterfaceResult = this.handleInterfaceResult.bind(this);
 
         this.tmpSendReq = this.tmpSendReq.bind(this);
     };
@@ -90,19 +88,50 @@ class BroadcastService {
 
 
     /**
-     * Sends the given data JSON:ified on the websocket
-     * @param {the messge to send} msg
+     * This function retrieves the local IP address of this machine we are running on.
      */
     retrieveLocalIp() {
         console.log('> retrieveLocalIp');
-        dns.lookup(os.hostname(), this.localIpRetrieved);
+        var ifaces = os.networkInterfaces();
+
+//        console.log("ifaces : " + JSON.stringify(ifaces));
+        let keys = Object.keys(ifaces);
+        for (var i = 0; i < keys.length; i++) {
+            let ifname = keys[i];
+            let alias = 0;
+//            console.log("ifname : " + ifname);
+            let ifacesForName = ifaces[ifname];
+            if (ifacesForName !== undefined) {
+                for (var j = 0; j < ifacesForName.length; j++) {
+                    let iface = ifacesForName[j];
+//                    console.log("iface : " + JSON.stringify(iface));
+                    this.handleInterfaceResult(iface, ifname, alias)
+                }
+            }
+            alias = alias + 1;
+        }
     }
 
     /**
+     * This function is called when the IP address has been retrieved (async function)
      */
-    localIpRetrieved(err, add, fam) {
-        console.log('Local IP retrieved: add: ' + add + ", fam: " + fam + ", err" + err );
-        this.ipaddress = add;
+    handleInterfaceResult(iface, ifname, alias) {
+        if ('IPv4' !== iface.family || iface.internal !== false) {
+            // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+            return;
+        }
+
+        if (alias >= 1) {
+            // this single interface has multiple ipv4 addresses
+            console.log(ifname + '[' + alias + '] : ' + iface.address);
+        } else {
+            // this interface has only one ipv4 adress
+            console.log(ifname + " : " + iface.address);
+        }
+        if ('Local Area Connection' === ifname) {
+            this.ipaddress = iface.address;
+            console.log('Local IP found: ' + this.ipaddress);
+        }
     }
 
     /**
@@ -115,6 +144,10 @@ class BroadcastService {
         console.log('UDP Server started and listening on ' + address.address + ":" + address.port);
     }
 
+    /**
+     * Broadcast server info to all clients (IP address & port)
+     * @param {*} arg 
+     */
     broadcastSrvSettings(arg) {
         console.log('> broadcastSrvSettings');
         let mqttSrvInfo = new MqttSrvInfo(this.ipaddress, this.serviceRequestPort, 'MqttSrv');
@@ -126,10 +159,17 @@ class BroadcastService {
         console.log('< broadcastSrvSettings');
     }
 
+    /**
+     * Broadcast the received text
+     * @param {Text to send} message 
+     */
     broadcastMessage(message) {
         this.client.send(message, 0, message.length, this.infoSendPort, "localhost");
     }
 
+    /**
+     * Remove this after test
+     */
     tmpSendReq() {
         console.log('> tmpSendReq');
         let mqttSrvInfo = new MqttSrvInfoRequest();
@@ -137,7 +177,7 @@ class BroadcastService {
         let message = JSON.stringify(msg);
         console.log('tmpSendReq, sending: ' + message);
         this.client.send(message, 0, message.length, this.serviceRequestPort, "localhost");
-//        this.client.send(message, 0, message.length, this.clientPort, "localhost");
+        //        this.client.send(message, 0, message.length, this.clientPort, "localhost");
         console.log('< tmpSendReq');
     }
 }
