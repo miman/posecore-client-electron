@@ -6,7 +6,7 @@ var os = require('os');
 import {
     mqttSrvInfoReqTypeStr
 } from './mqtt-srv-info-request';
-import MqttSrvInfoRequest from './mqtt-srv-info-request';
+// import MqttSrvInfoRequest from './mqtt-srv-info-request';
 import MqttSrvInfo from './mqtt-srv-info';
 
 
@@ -36,7 +36,7 @@ class BroadcastService {
         this.broadcastMessage = this.broadcastMessage.bind(this);
         this.handleInterfaceResult = this.handleInterfaceResult.bind(this);
 
-        this.tmpSendReq = this.tmpSendReq.bind(this);
+//        this.tmpSendReq = this.tmpSendReq.bind(this);
     };
 
     /**
@@ -59,7 +59,7 @@ class BroadcastService {
         // Broadcast the server settings after 100 ms
         this.sendSrvSettingTimer = setTimeout(this.broadcastSrvSettings, 1000, 'started');
 
-        setTimeout(this.tmpSendReq, 5000, 'request');
+//        setTimeout(this.tmpSendReq, 5000, 'request');
     };
 
     /**
@@ -150,7 +150,7 @@ class BroadcastService {
      */
     broadcastSrvSettings(arg) {
         console.log('> broadcastSrvSettings');
-        let mqttSrvInfo = new MqttSrvInfo(this.ipaddress, this.serviceRequestPort, 'MqttSrv');
+        let mqttSrvInfo = new MqttSrvInfo(this.ipaddress, this.infoSendPort, 'MqttSrv');
         let msg = mqttSrvInfo.createMessage(this.correlationId);
         this.correlationId = this.correlationId + 1;
         let message = JSON.stringify(msg);
@@ -169,7 +169,7 @@ class BroadcastService {
 
     /**
      * Remove this after test
-     */
+     * /
     tmpSendReq() {
         console.log('> tmpSendReq');
         let mqttSrvInfo = new MqttSrvInfoRequest();
@@ -180,6 +180,7 @@ class BroadcastService {
         //        this.client.send(message, 0, message.length, this.clientPort, "localhost");
         console.log('< tmpSendReq');
     }
+    */
 }
 
 
