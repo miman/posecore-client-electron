@@ -13,7 +13,7 @@ gulp.task('build-css', function(){
 });
 
 gulp.task('build-js', () => {
-        return gulp.src(['main.js', 'src/**/*.js', '!src/**/*.test.js'])
+        return gulp.src(['main.js', 'src/**/*.gui', 'src/**/*.js', '!src/**/*.test.js'])
             .pipe(maps.init())
             .pipe(babel())
             .pipe(maps.write('.'))
