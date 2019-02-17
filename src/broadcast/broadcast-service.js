@@ -25,6 +25,7 @@ class BroadcastService {
         this.ipaddress = "?";
         this.serviceRequestPort = 45458;
         this.infoSendPort = 45459;
+        this.mqttSrvPort = 1883;
         this.correlationId = 1;
         this.sendSrvSettingTimer = null;
 
@@ -150,7 +151,7 @@ class BroadcastService {
      */
     broadcastSrvSettings(arg) {
         console.log('> broadcastSrvSettings');
-        let mqttSrvInfo = new MqttSrvInfo(this.ipaddress, this.infoSendPort, 'MqttSrv');
+        let mqttSrvInfo = new MqttSrvInfo(this.ipaddress, this.mqttSrvPort, 'MqttSrv');
         let msg = mqttSrvInfo.createMessage(this.correlationId);
         this.correlationId = this.correlationId + 1;
         let message = JSON.stringify(msg);
