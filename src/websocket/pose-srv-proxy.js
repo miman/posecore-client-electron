@@ -101,7 +101,7 @@ class PoseSrvProxy {
             return;
         }
         let poseEvent = this.convertPoseEvent(poses[maxProbabilityIndex]);
-        console.log('Pose-event to send: ' + JSON.stringify(poseEvent));
+//        console.log('Pose-event to send: ' + JSON.stringify(poseEvent));
         let msg = new MsgHeader();
         msg.type = POSE_UPDATE;
         msg.version = 1.0;
