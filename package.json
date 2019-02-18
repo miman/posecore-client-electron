@@ -1,6 +1,6 @@
 {
   "name": "posenet-client",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "Skeleton tracker app",
   "main": "app/main.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "license": "CC0-1.0",
   "dependencies": {
     "@tensorflow-models/posenet": "^0.2.3",
-    "@tensorflow/tfjs": "^0.15.0",
+    "@tensorflow/tfjs": "^0.13.0",
     "electron-is-dev": "^1.0.1",
     "@babel/polyfill": "^7.2.5",
     "dat.gui": "^0.7.2",
