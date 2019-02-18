@@ -79,6 +79,8 @@ async function setupCamera() {
   video.width = videoWidth;
   video.height = videoHeight;
 
+  poseProxy.setScreenSize(videoHeight, videoWidth);
+
   const mobile = isMobile();
   const stream = await navigator.mediaDevices.getUserMedia({
     'audio': false,
