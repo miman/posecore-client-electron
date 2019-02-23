@@ -4,6 +4,11 @@ Posenet client native app using electron
 
 # Build & run
 
+## preparation
+npm install -g electron
+npm install -g electron-builder
+npm install --global gulp-cli
+
 ## Install dependencies
 npm install
 
