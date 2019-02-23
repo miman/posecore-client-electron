@@ -8,7 +8,7 @@ import {
 } from './mqtt-srv-info-request';
 // import MqttSrvInfoRequest from './mqtt-srv-info-request';
 import MqttSrvInfo from './mqtt-srv-info';
-
+import ip from 'ip';
 
 /**
  * This service will listen to a broadcast port (45458) for incoming service requests.
@@ -93,6 +93,9 @@ class BroadcastService {
      */
     retrieveLocalIp() {
         console.log('> retrieveLocalIp');
+        this.ipaddress = ip.address() // my ip address
+        console.log('Local IP found: ' + this.ipaddress);
+    /*
         var ifaces = os.networkInterfaces();
 
 //        console.log("ifaces : " + JSON.stringify(ifaces));
@@ -110,7 +113,7 @@ class BroadcastService {
                 }
             }
             alias = alias + 1;
-        }
+        }*/
     }
 
     /**

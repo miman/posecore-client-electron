@@ -41,6 +41,7 @@ class PoseSrvProxy {
         this.connectToMqttSrv = this.connectToMqttSrv.bind(this);
         this.setScreenSize = this.setScreenSize.bind(this);
         this.convertPositionToPercent = this.convertPositionToPercent.bind(this);
+        this.cleanValuePercentage = this.cleanValuePercentage.bind(this);
     };
 
     connectToMqttSrv() {
@@ -127,6 +128,9 @@ class PoseSrvProxy {
         console.log('Screen size (h: ' + this.videoHeight + ', w: ' + this.videoWidth + ')');
     }
 
+    /**
+     * Converts from the PoseNet JSON structure to the PoseApi JSON Format.
+     */
     convertPoseEvent(event) {
         //  console.log('event: ' + JSON.stringify(event));
         let poseEvent = new PoseEvent();
@@ -194,9 +198,22 @@ class PoseSrvProxy {
      */
     convertPositionToPercent(pos) {
         return {
-            "x": (100*pos.x)/this.videoWidth,
-            "y": (100*pos.y)/this.videoHeight
+            "x": this.cleanValuePercentage((100*pos.x)/this.videoWidth),
+            "y": 100 - this.cleanValuePercentage((100*pos.y)/this.videoHeight)
         };
+    }
+
+    /**
+     * Ensures that the given value is between 0 - 100
+     * @param {The value to check} v 
+     */
+    cleanValuePercentage(v) {
+        if (v < 0) {
+            v = 0;
+        } else if (v > 100) {
+            v = 100;
+        }
+        return v;
     }
 }
 
