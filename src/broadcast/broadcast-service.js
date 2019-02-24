@@ -6,9 +6,8 @@ var os = require('os');
 import {
     mqttSrvInfoReqTypeStr
 } from './mqtt-srv-info-request';
-// import MqttSrvInfoRequest from './mqtt-srv-info-request';
 import MqttSrvInfo from './mqtt-srv-info';
-import ip from 'ip';
+// import ip from 'ip';
 
 /**
  * This service will listen to a broadcast port (45458) for incoming service requests.
@@ -22,7 +21,7 @@ class BroadcastService {
         console.log('Creating BroadcastService');
         this.server = dgram.createSocket("udp4");
         this.client = dgram.createSocket("udp4");
-        this.ipaddress = "?";
+        this.ipAddressList = [];
         this.serviceRequestPort = 45458;
         this.infoSendPort = 45459;
         this.mqttSrvPort = 1883;
@@ -93,9 +92,9 @@ class BroadcastService {
      */
     retrieveLocalIp() {
         console.log('> retrieveLocalIp');
-        this.ipaddress = ip.address() // my ip address
-        console.log('Local IP found: ' + this.ipaddress);
-    /*
+//        this.ipaddress = ip.address() // my ip address
+//        console.log('Local IP found: ' + this.ipaddress);
+    
         var ifaces = os.networkInterfaces();
 
 //        console.log("ifaces : " + JSON.stringify(ifaces));
@@ -113,7 +112,7 @@ class BroadcastService {
                 }
             }
             alias = alias + 1;
-        }*/
+        }
     }
 
     /**
@@ -132,17 +131,14 @@ class BroadcastService {
             // this interface has only one ipv4 adress
             console.log(ifname + " : " + iface.address);
         }
-        if ('Local Area Connection' === ifname) {
-            this.ipaddress = iface.address;
-            console.log('Local IP found: ' + this.ipaddress);
-        }
+        this.ipAddressList.push(iface.address);
+        console.log('Local IP added: ' + iface.address);
     }
 
     /**
      * called when the UDP server connection is established
      */
     onServerListening() {
-        console.log('UDP Server started and listening');
         // Get and print udp server listening ip address and port number in log console. 
         var address = this.server.address();
         console.log('UDP Server started and listening on ' + address.address + ":" + address.port);
@@ -153,14 +149,12 @@ class BroadcastService {
      * @param {*} arg 
      */
     broadcastSrvSettings(arg) {
-        console.log('> broadcastSrvSettings');
-        let mqttSrvInfo = new MqttSrvInfo(this.ipaddress, this.mqttSrvPort, 'MqttSrv');
+        let mqttSrvInfo = new MqttSrvInfo(this.ipAddressList, this.mqttSrvPort, 'MqttSrv');
         let msg = mqttSrvInfo.createMessage(this.correlationId);
         this.correlationId = this.correlationId + 1;
         let message = JSON.stringify(msg);
         this.broadcastMessage(message);
         this.sendSrvSettingTimer = null;
-        console.log('< broadcastSrvSettings');
     }
 
     /**
@@ -168,23 +162,9 @@ class BroadcastService {
      * @param {Text to send} message 
      */
     broadcastMessage(message) {
+        console.log('Sending broadcast msg: ' + JSON.stringify(message));
         this.client.send(message, 0, message.length, this.infoSendPort, "localhost");
     }
-
-    /**
-     * Remove this after test
-     * /
-    tmpSendReq() {
-        console.log('> tmpSendReq');
-        let mqttSrvInfo = new MqttSrvInfoRequest();
-        let msg = mqttSrvInfo.createMessage('1234');
-        let message = JSON.stringify(msg);
-        console.log('tmpSendReq, sending: ' + message);
-        this.client.send(message, 0, message.length, this.serviceRequestPort, "localhost");
-        //        this.client.send(message, 0, message.length, this.clientPort, "localhost");
-        console.log('< tmpSendReq');
-    }
-    */
 }
 
 

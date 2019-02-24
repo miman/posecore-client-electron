@@ -1,6 +1,6 @@
 {
   "name": "posenet-client",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "description": "Skeleton tracker app",
   "main": "app/main.js",
   "scripts": {

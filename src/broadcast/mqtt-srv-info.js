@@ -9,8 +9,8 @@ class MqttSrvInfo {
     /**
      * Constructor
      */
-    constructor(ip, port, srvType) {
-        this.ip = ip; // IP of the MQTT Srv
+    constructor(ipList, port, srvType) {
+        this.ipList = ipList; // IP of the MQTT Srv
         this.port = port;   // Port of the MQTT srv
         this.srvType = srvType;   // What type of server this is
     };
