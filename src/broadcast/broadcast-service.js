@@ -147,8 +147,7 @@ class BroadcastService {
      */
     broadcastSrvSettings(arg) {
         this.ipAddressList.forEach(ip => {
-            let ipArray = [ip];
-            let mqttSrvInfo = new MqttSrvInfo(ipArray, this.mqttSrvPort, 'MqttSrv');
+            let mqttSrvInfo = new MqttSrvInfo(ip, this.mqttSrvPort, 'MqttSrv');
             let msg = mqttSrvInfo.createMessage(this.correlationId);
             this.correlationId = this.correlationId + 1;
             let message = JSON.stringify(msg);
