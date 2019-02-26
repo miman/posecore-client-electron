@@ -7,7 +7,6 @@ import {
     mqttSrvInfoReqTypeStr
 } from './mqtt-srv-info-request';
 import MqttSrvInfo from './mqtt-srv-info';
-import MqttIpFinder from './mqtt-ip-finder';
 
 // import ip from 'ip';
 
@@ -23,15 +22,13 @@ class BroadcastService {
         console.log('Creating BroadcastService');
         this.server = dgram.createSocket("udp4");
         this.client = dgram.createSocket("udp4");
+        this.broadcastIps = [];
         this.ipAddressList = [];
-        // The actual IP's where the MQTT srv is listening to
-        this.actualIpList = [];
         this.serviceRequestPort = 45458;
         this.infoSendPort = 45459;
         this.mqttSrvPort = 1883;
         this.correlationId = 1;
         this.sendSrvSettingTimer = null;
-        this.mqttIpFinder = new MqttIpFinder();
 
         this.initialize = this.initialize.bind(this);
         this.handleReceivedMsg = this.handleReceivedMsg.bind(this);
@@ -40,8 +37,7 @@ class BroadcastService {
         this.retrieveLocalIp = this.retrieveLocalIp.bind(this);
         this.broadcastMessage = this.broadcastMessage.bind(this);
         this.handleInterfaceResult = this.handleInterfaceResult.bind(this);
-        this.setActualIp = this.setActualIp.bind(this);
-        this.verifyMqttSrvIpAddress = this.verifyMqttSrvIpAddress.bind(this);
+        this.getBroadcastIp = this.getBroadcastIp.bind(this);
     };
 
     /**
@@ -53,8 +49,8 @@ class BroadcastService {
         this.infoSendPort = infoSendPort;
         console.log('Initializing UDP broadcast service (serviceRequestPort: ' + this.serviceRequestPort + ', infoSendPort: ' + this.infoSendPort + ')');
         this.retrieveLocalIp();
-        // Make udp server listen on server port.
-        this.server.bind(this.serviceRequestPort);
+        // Make udp server listen on server port & broadcast IP address
+        this.server.bind(this.serviceRequestPort, "0.0.0.0");
 
         // When udp server receive message.
         this.server.on("message", this.handleReceivedMsg);
@@ -114,15 +110,6 @@ class BroadcastService {
             }
             alias = alias + 1;
         }
-        this.actualIpList = this.ipAddressList;
-    }
-
-    /**
-     * Used to verify MQTT IP addresses by connecting to all found
-     */
-    verifyMqttSrvIpAddress() {
-        this.actualIpList = [];
-        this.mqttIpFinder.findActualIp(this.ipAddressList, this.mqttSrvPort, this.setActualIp);
     }
 
     /**
@@ -159,11 +146,15 @@ class BroadcastService {
      * @param {*} arg 
      */
     broadcastSrvSettings(arg) {
-        let mqttSrvInfo = new MqttSrvInfo(this.actualIpList, this.mqttSrvPort, 'MqttSrv');
-        let msg = mqttSrvInfo.createMessage(this.correlationId);
-        this.correlationId = this.correlationId + 1;
-        let message = JSON.stringify(msg);
-        this.broadcastMessage(message);
+        this.ipAddressList.forEach(ip => {
+            let ipArray = [ip];
+            let mqttSrvInfo = new MqttSrvInfo(ipArray, this.mqttSrvPort, 'MqttSrv');
+            let msg = mqttSrvInfo.createMessage(this.correlationId);
+            this.correlationId = this.correlationId + 1;
+            let message = JSON.stringify(msg);
+            let broadcastIp = this.getBroadcastIp(ip);
+            this.broadcastMessage(message, broadcastIp);
+        });
         this.sendSrvSettingTimer = null;
     }
 
@@ -171,13 +162,18 @@ class BroadcastService {
      * Broadcast the received text
      * @param {Text to send} message 
      */
-    broadcastMessage(message) {
-        console.log('Sending broadcast msg: ' + JSON.stringify(message));
-        this.client.send(message, 0, message.length, this.infoSendPort, "localhost");
+    broadcastMessage(message, ip) {
+        console.log('Sending broadcast msg: ' + JSON.stringify(message) + " @ " + ip);
+        this.client.send(message, 0, message.length, this.infoSendPort, ip);
     }
 
-    setActualIp(actualIpList) {
-        this.actualIpList = actualIpList;
+    /**
+     * This function creates 
+     */
+    getBroadcastIp(ip) {
+        let res = ip.split(".");
+        let broadcastIp = res[0] + "." + res[1] + "." + res[2] + ".255";
+        return broadcastIp;
     }
 }
 
