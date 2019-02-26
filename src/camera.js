@@ -41,7 +41,8 @@ function poseSrvConnectedCallback() {
  */
 function mqqtSrvRunning() {
   console.log('mqqtSrvRunning called');
-  poseProxy.connectToMqttSrv();
+//  broadcastService.verifyMqttSrvIpAddress();
+poseProxy.connectToMqttSrv();
 }
 
 let moscaMqttServer = new MoscaMqttServer();

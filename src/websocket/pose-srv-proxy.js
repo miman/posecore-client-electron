@@ -47,7 +47,6 @@ class PoseSrvProxy {
     connectToMqttSrv() {
         console.log('Connecting to communication channel');
         if (this.useMqtt) {
-            console.log('Connecting to MQTT srv: ' + localMqttUrl);
             this.mqttClient = new MqttConnection('POSE_CLIENT_' + uuidv4());
             this.mqttClient.username = '';
             this.mqttClient.password = '';

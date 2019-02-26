@@ -7,6 +7,8 @@ import {
     mqttSrvInfoReqTypeStr
 } from './mqtt-srv-info-request';
 import MqttSrvInfo from './mqtt-srv-info';
+import MqttIpFinder from './mqtt-ip-finder';
+
 // import ip from 'ip';
 
 /**
@@ -22,11 +24,14 @@ class BroadcastService {
         this.server = dgram.createSocket("udp4");
         this.client = dgram.createSocket("udp4");
         this.ipAddressList = [];
+        // The actual IP's where the MQTT srv is listening to
+        this.actualIpList = [];
         this.serviceRequestPort = 45458;
         this.infoSendPort = 45459;
         this.mqttSrvPort = 1883;
         this.correlationId = 1;
         this.sendSrvSettingTimer = null;
+        this.mqttIpFinder = new MqttIpFinder();
 
         this.initialize = this.initialize.bind(this);
         this.handleReceivedMsg = this.handleReceivedMsg.bind(this);
@@ -35,8 +40,8 @@ class BroadcastService {
         this.retrieveLocalIp = this.retrieveLocalIp.bind(this);
         this.broadcastMessage = this.broadcastMessage.bind(this);
         this.handleInterfaceResult = this.handleInterfaceResult.bind(this);
-
-//        this.tmpSendReq = this.tmpSendReq.bind(this);
+        this.setActualIp = this.setActualIp.bind(this);
+        this.verifyMqttSrvIpAddress = this.verifyMqttSrvIpAddress.bind(this);
     };
 
     /**
@@ -58,8 +63,6 @@ class BroadcastService {
 
         // Broadcast the server settings after 100 ms
         this.sendSrvSettingTimer = setTimeout(this.broadcastSrvSettings, 1000, 'started');
-
-//        setTimeout(this.tmpSendReq, 5000, 'request');
     };
 
     /**
@@ -92,8 +95,6 @@ class BroadcastService {
      */
     retrieveLocalIp() {
         console.log('> retrieveLocalIp');
-//        this.ipaddress = ip.address() // my ip address
-//        console.log('Local IP found: ' + this.ipaddress);
     
         var ifaces = os.networkInterfaces();
 
@@ -113,6 +114,15 @@ class BroadcastService {
             }
             alias = alias + 1;
         }
+        this.actualIpList = this.ipAddressList;
+    }
+
+    /**
+     * Used to verify MQTT IP addresses by connecting to all found
+     */
+    verifyMqttSrvIpAddress() {
+        this.actualIpList = [];
+        this.mqttIpFinder.findActualIp(this.ipAddressList, this.mqttSrvPort, this.setActualIp);
     }
 
     /**
@@ -149,7 +159,7 @@ class BroadcastService {
      * @param {*} arg 
      */
     broadcastSrvSettings(arg) {
-        let mqttSrvInfo = new MqttSrvInfo(this.ipAddressList, this.mqttSrvPort, 'MqttSrv');
+        let mqttSrvInfo = new MqttSrvInfo(this.actualIpList, this.mqttSrvPort, 'MqttSrv');
         let msg = mqttSrvInfo.createMessage(this.correlationId);
         this.correlationId = this.correlationId + 1;
         let message = JSON.stringify(msg);
@@ -164,6 +174,10 @@ class BroadcastService {
     broadcastMessage(message) {
         console.log('Sending broadcast msg: ' + JSON.stringify(message));
         this.client.send(message, 0, message.length, this.infoSendPort, "localhost");
+    }
+
+    setActualIp(actualIpList) {
+        this.actualIpList = actualIpList;
     }
 }
 

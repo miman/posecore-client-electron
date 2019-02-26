@@ -7,8 +7,9 @@ class ClientConnectedMsg {
      * Constructor
      * @param {The dispatch function for redux} dispatch 
      */
-    constructor(clientId) {
+    constructor(clientId, srvUrl) {
         this.clientId = clientId;
+        this.srvUrl = srvUrl;
     };
 }
 
