@@ -22,7 +22,7 @@ import {
   drawSkeleton,
   drawBoundingBox
 } from './demo_util';
-import MoscaMqttServer from './mqttsrv/mosca_mqtt_srv';
+// import MoscaMqttServer from './mqttsrv/mosca_mqtt_srv';
 
 import PoseSrvProxy from './websocket/pose-srv-proxy';
 import BroadcastService from './broadcast/broadcast-service'
@@ -42,13 +42,16 @@ function poseSrvConnectedCallback() {
 function mqqtSrvRunning() {
   console.log('mqqtSrvRunning called');
 //  broadcastService.verifyMqttSrvIpAddress();
-poseProxy.connectToMqttSrv();
+  poseProxy.connectToMqttSrv();
 }
 
-let moscaMqttServer = new MoscaMqttServer();
-moscaMqttServer.test('Hejsan');
-moscaMqttServer.setConnectCallbackFn(mqqtSrvRunning);
-moscaMqttServer.startMqttSrv();
+// Usage of the local MQTT server is disabled right now, while I have problems building the mosca embedding
+//let moscaMqttServer = new MoscaMqttServer();
+//moscaMqttServer.test('Hejsan');
+//moscaMqttServer.setConnectCallbackFn(mqqtSrvRunning);
+//moscaMqttServer.startMqttSrv();
+// While we don't use the local MQTT server right now, we start the MQTT connection regardless
+mqqtSrvRunning();
 
 const videoWidth = 600;
 const videoHeight = 500;

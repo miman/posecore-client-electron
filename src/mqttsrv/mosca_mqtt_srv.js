@@ -1,4 +1,4 @@
-var mosca = require('mosca');
+// var mosca = require('mosca');
 
 var settings = {
     port: 1883
@@ -23,12 +23,12 @@ class MoscaMqttServer {
     };
 
     startMqttSrv() {
-        this.mqttServer = new mosca.Server(settings);
+/*        this.mqttServer = new mosca.Server(settings);
 
         this.mqttServer.on('ready', this.setup);
         this.mqttServer.on('clientConnected', this.clientConnected);
         // fired when a message is received
-        this.mqttServer.on('published', this.msgReceived);
+        this.mqttServer.on('published', this.msgReceived);*/
     }
 
     setConnectCallbackFn(callback) {

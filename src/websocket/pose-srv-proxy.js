@@ -15,7 +15,8 @@ const uuidv4 = require('uuid/v4');
 
 // mqttClient.subscribe("posetracking/user/device-id/pose-event", {qos:0});
 
-const localMqttUrl = 'mqtt://localhost:1883';
+// const localMqttUrl = 'mqtt://localhost:1883';
+const localMqttUrl = 'mqtt://192.168.0.33:32768';
 
 /**
  * This is a websocket class that Implements the logic according for thsi connection to the server.
