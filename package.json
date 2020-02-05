@@ -1,6 +1,6 @@
 {
   "name": "posenet-client",
-  "version": "6.0.2",
+  "version": "6.0.0",
   "description": "Skeleton tracker app",
   "main": "app/main.js",
   "scripts": {
@@ -25,28 +25,29 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
     "@tensorflow-models/posenet": "^2.2.1",
-    "@tensorflow/tfjs": "^1.5.1",
+    "@tensorflow/tfjs": "^1.5.2",
     "dat.gui": "^0.7.6",
     "electron-is-dev": "^1.1.0",
     "ip": "^1.1.5",
-    "mqtt": "^3.0.0",
+    "mosca": "^2.8.3",
+    "mqtt": "^2.18.8",
     "stats.js": "^0.17.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "@babel/register": "^7.8.3",
     "clang-format": "~1.2.2",
-    "electron": "^7.1.9",
-    "electron-builder": "^22.2.0",
+    "electron": "^8.0.0",
+    "electron-builder": "^22.3.2",
     "eslint": "^6.8.0",
-    "eslint-config-google": "^0.9.1",
-    "gulp": "^4.0.2",
+    "eslint-config-google": "^0.14.0",
+    "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-css": "^0.1.0",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^2.6.4",
     "jest": "^25.1.0"
   },
   "build": {
