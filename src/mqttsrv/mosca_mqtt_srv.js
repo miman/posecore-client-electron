@@ -48,7 +48,8 @@ class MoscaMqttServer {
     }
 
     msgReceived(msg, client) {
-        console.log('Msg received: ' + msg.payload);
+        // Remarked to better be able to view logs
+//        console.log('Msg received: ' + msg.payload);
     }
 
     test(str) {

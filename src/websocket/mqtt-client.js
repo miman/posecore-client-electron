@@ -4,6 +4,7 @@ import {
 import ClientConnectedMsg from '../api/client_connected_msg';
 import Client from 'mqtt';
 const uuidv4 = require('uuid/v4');
+import * as util from 'util';
 
 // var mqttClient = Client.connect("mqtt://mqtt.thorman.eu:8883",{clientId:"mqttjs01"});
 
@@ -79,6 +80,8 @@ class MqttConnection {
   sendMsg(msgObj, topic) {
     let processedTopic = topic.replace('${ClientId}', this.clientId);
     processedTopic = processedTopic.replace('${SessionId}', this.sessionId);
+    // Used to see the content of the actual msg being sent
+//    console.log(util.inspect(msgObj));
     let msgToSend = JSON.stringify(msgObj);
     this.mqttClient.publish(processedTopic, msgToSend, this.postOptions);
     //        console.log('MQTT-msg [' + msgToSend + '] sent on topic: ' + processedTopic);
@@ -111,6 +114,7 @@ class MqttConnection {
    * @param {The received event} event
    */
   onMessage(topic, message, packet) {
+    // Remarked to better be able to view logs
     console.log('MQTT-Msg received on topic [' + topic + ']: ' + message);
 
     const data = JSON.parse(message);

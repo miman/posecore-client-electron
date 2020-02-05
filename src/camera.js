@@ -518,7 +518,7 @@ export async function bindPage() {
 
   setupGui([], net);
   setupFPS();
-  poseProxy.sendPoseServerInitialized(guiState);
+  poseProxy.sendPoseServerInitialized(guiState.input);
   detectPoseInRealTime(video, net);
 }
 
@@ -526,3 +526,37 @@ navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // kick off the demo
 bindPage();
+
+/*
+guiState = {
+    algorithm: 'multi-pose',
+    input: {
+      architecture: 'MobileNetV1',
+      outputStride: 16,
+      inputResolution: 500,
+      multiplier: 0.75,
+      quantBytes: 2
+    },
+    singlePoseDetection: { minPoseConfidence: 0.1, minPartConfidence: 0.5 },
+    multiPoseDetection: {
+      maxPoseDetections: 5,
+      minPoseConfidence: 0.15,
+      minPartConfidence: 0.1,
+      nmsRadius: 30
+    },
+    output: {
+      showVideo: true,
+      showSkeleton: true,
+      showPoints: true,
+      showBoundingBox: false
+    },
+    net: PoseNet { baseModel: [MobileNet], inputResolution: [Array] },
+    tryResNetButton: [Function],
+    architecture: 'MobileNetV1',
+    inputResolution: 500,
+    outputStride: 16,
+    multiplier: 0.75,
+    quantBytes: 2
+  }
+}
+*/
