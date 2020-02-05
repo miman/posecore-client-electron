@@ -1,4 +1,4 @@
-const spawn = require('child_process').spawn;
+const spawn = require('cross-spawn');
 const gulp  = require('gulp');
 const maps  = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
