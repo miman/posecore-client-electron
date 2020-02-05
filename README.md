@@ -1,22 +1,27 @@
 # posenet-client-electron
 
-Posenet client native app using electron
+Posenet client native app using electron.
+
+This is an application with an embedded MQTT server that uses the camera to track your poses (skeleton tracking).
+These poses are then published on the MQTT server to be consumed by any client.
+
+The server listens to broadcasts requests on the port 45458 and will publish MQTT/wqebcast information on the brodcast port 45459 whenever a request has been received on the port 45458 or at application startup.
+
+The request message should be formatted as:
+{
+ header: {
+     type: 'MqttSrvInfoRequest',
+     sendTime: 1234567890 (Unix long time)
+ }
+}
 
 # Build & run
-
-## preparation
-npm install -g electron
-npm install -g electron-builder
-npm install --global gulp-cli
 
 ## Install dependencies
 npm install
 
 ## run
-npm run start
-
-This doesn't work in windows, must be run in linux subsystem on Windows 10.
-
+npm start
 
 ## Build
 npm run build
