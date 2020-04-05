@@ -6,13 +6,26 @@ import MsgHeader from './msg_header';
  * Header type for this message is 'MqttSrvInfoRequest'
  */
 class MqttSrvInfo {
+
     /**
      * Constructor
      */
     constructor(ip, port, srvType) {
-        this.ip = ip; // IP of the MQTT Srv
-        this.port = port;   // Port of the MQTT srv
-        this.srvType = srvType;   // What type of server this is
+        /**
+         * IP of the MQTT Srv
+         */
+        this.ip = ip;
+        /**
+         * Port of the MQTT srv
+         */
+        this.port = port;
+        /**
+         * What type of server this is.
+         * possible values are:
+         * - MqttSrv
+         * - WebsocketSrv
+         */
+        this.srvType = srvType;
     };
 
     /**

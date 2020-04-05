@@ -1,6 +1,9 @@
 import Message from './msg';
 import MsgHeader from './msg_header';
 
+/**
+ * This is the unique service name for the MqttSrvInfoRequest, this should be set as the type for the message
+ */
 export const mqttSrvInfoReqTypeStr = 'MqttSrvInfoRequest';
 
 /**
@@ -8,11 +11,19 @@ export const mqttSrvInfoReqTypeStr = 'MqttSrvInfoRequest';
  * type for this message is 'MqttSrvInfoRequest'
  */
 class MqttSrvInfoRequest {
+
     /**
      * Constructor
      */
     constructor() {
-        this.ip = null; // IP of the requestor
+        /**
+         * IP of the requestor
+         */
+        this.ip = null;
+        /**
+         * The name of the client
+         */
+        this.clientName = "";
     };
 
     /**
