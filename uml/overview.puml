@@ -11,7 +11,7 @@ node "Pose Electron Srv" as pes {
 
 mqtt_srv -- pose_srv
 client -- mqtt_srv: MQTT
-client -- broadcast_srv: TCP/Broadcast
+client -- broadcast_srv: UDP Broadcast
 pose_srv -- camera
 
 @enduml
