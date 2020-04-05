@@ -22,6 +22,10 @@ ds.
 ### Start client flow
 ![PoseCore start flow](http://www.plantuml.com/plantuml/png/PP71QiCm38RlUOgVtlS2FOn2s76miRw0wgYhcMiPIqtOsq_Lp7Qe3Y5A_l_x33weKRVRjQ29SYgPgyMdSv5jck13oQHZTrFkEv3Y_X8_ciTooesgOJT75THQX7v9Zx4tjypI6I-5atMfSDewo8qrbA70q_EWO8yFSmZIdoDIO_MS5-yXhWjENHPAf8QhVaQCYi4kxCwildIcvHjKGSdooiC_OOoZ_irxw63I4ipEsgGgOyjsWVRLAObLaUjP1kFnOBFKoibWWjVtup5wqh7nIILziKNHHTDqyATVnWy0)
 
+### Pose event flow
+This is the flow for each pose noticied by the framework
+![Pose event flow](http://www.plantuml.com/plantuml/png/bP71QlCm48JlVeeXz_y5VFW9X1vRMXBefL1aUHkBo9AgNJlDsnUjOd2JNkgBPU_ipBUhBOl9CeqUAJBHJ44-V3mt3G0OAp5ZCp7b3GoZ7BIGJ1PdNJ91iDcPaR9HWTNZlUGvCe4fpzL8izuvp_VAnvV30Viygspy5FbTjlEEWi2aL7FrKw4L4l_-NrdGel91ih6drGorNfGBJOl2-KG2eS0nbqN0kmvl0JtPs5Dj1v_8ayIWFaltJwU7hv8da87qByvE1WpkE10BKewTwPntSgcBzWATt6b23yE5Dt2AMU3DvSfycxSi28ekoW-zH8nyh2rgho2PYhyHU38iY85WhBYPblrXzLJh6bFBxThUCTB40_LbEHB1KySskyw5uwqRXRvPlPNcbJgEzaJoruchDrhiAVGtyqBYAblpcYs5VXhzDm00)
+
 ## Broadcasts msgs
 The request message should be formatted as:
 Class found @ src/broadcast/mqtt-srv-info-request.js

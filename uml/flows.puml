@@ -26,3 +26,26 @@
     end
 
 @enduml
+
+@startuml poseeventflow
+
+    actor "user" as user
+    participant "Camera" as camera
+    participant "Pose server" as pose_srv
+    participant "MQTT Srv" as mqtt_srv
+    participant "Client app" as client
+
+    user -> camera : Camera tracks user
+    camera -> pose_srv: PoseNet tensorflow lib \n decodes user skeleton
+    pose_srv -> pose_srv: Extract the pose with highest probability
+    alt MQTT is used as transport layer
+        pose_srv -> mqtt_srv : Post Pose event msg
+        alt there is at least one active client
+            mqtt_srv -> client: Pose event is pushed \n to subscribing client
+        end
+    end
+    alt Websocket is used as transport layer
+        pose_srv -> client : Send Pose event msg to client
+    end
+
+@enduml
