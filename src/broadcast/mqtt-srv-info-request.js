@@ -15,15 +15,15 @@ class MqttSrvInfoRequest {
     /**
      * Constructor
      */
-    constructor() {
+    constructor(ip, clientName) {
         /**
          * IP of the requestor
          */
-        this.ip = null;
+        this.ip = ip;
         /**
          * The name of the client
          */
-        this.clientName = "";
+        this.clientName = clientName;
     };
 
     /**
