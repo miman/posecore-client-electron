@@ -1,5 +1,10 @@
 # posenet-client-electron
 
+## What is this
+This application uses the brilliant work by the [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) project, and adds a communication layer on top of this to route the poses to external clients so they can use the pose information.
+Ex games, remote presence apps...
+
+## Description of this application/project
 Posenet client native app using electron.
 
 This is an application with an embedded MQTT server that uses the camera to track your poses (skeleton tracking).
