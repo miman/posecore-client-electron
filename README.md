@@ -9,6 +9,13 @@ To simplify configuration the server & clients autoconfigure so the clients auto
 This is done over TCP broadcasting.
 The server listens to broadcasts requests on the port 45458 and will publish MQTT/webcast information on the brodcast port 45459 whenever a request has been received on the port 45458 or at application startup.
 
+## System overview
+![PoseCore overview](http://www.plantuml.com/plantuml/png/RP113u8m38Nl_HKDT-BT4v5uDC78tOpHWmdRi2juCFvtDs18Y3krVL_VorfuKIo3wR1tdhHZ0YYTwPqbAvXLOOYwUuGcG-MNSal4SX1YV56ZbI5M4pYN0DQrjDYSEzB2pkADnudfoUCRCBnzeYSUYMSez7VFuvwxNEjwTJ9FaN_GYPrgjVAoTMpISDhu0AHjpFDVtFpJE4ho4MFcHaX6YrgNrM4DX6GKmNICWcmRJlq5)
+
+ps.
+image links for diagrams created using the PlantUml onlie editor [here](http://www.plantuml.com/plantuml/uml/SoWkIImgAStDuShBJqbLA4ajBk5oICrB0Oe00000)
+ds.
+
 ## Broadcasts msgs
 The request message should be formatted as:
 Class found @ src/broadcast/mqtt-srv-info-request.js

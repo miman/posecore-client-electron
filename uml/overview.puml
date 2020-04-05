@@ -1,0 +1,17 @@
+@startuml posecore
+
+Component "Pose client" as client
+Component "Computer webcamera" as camera
+
+node "Pose Electron Srv" as pes {
+    Component "Pose server" as pose_srv
+    Component "MQTT Srv" as mqtt_srv
+    Component "Broadcast server" as broadcast_srv
+}
+
+mqtt_srv -- pose_srv
+client -- mqtt_srv: MQTT
+client -- broadcast_srv: TCP/Broadcast
+pose_srv -- camera
+
+@enduml
