@@ -16,6 +16,12 @@ ps.
 image links for diagrams created using the PlantUml onlie editor [here](http://www.plantuml.com/plantuml/uml/SoWkIImgAStDuShBJqbLA4ajBk5oICrB0Oe00000)
 ds.
 
+### Start server flow
+![PoseCore start flow](http://www.plantuml.com/plantuml/png/PL3BJWCn3BplLunwvmTwG9LM7950z0VIx5IDMEB8TdV5tvC7eWTyI69d9ZEJatbGlt-jA6ACeko3wohxDA5MY2wAmzse1mH3E_IBKc4ffXAoup2lYNKFfNHGxEr_s9iOPr7YPMLqbGoZRhyl5rgNx19uUcu37F7H_E2FEGXDQSAeZglm8Ng4CI-ug8Gb1dCehKWsOaz-W-c642FDaF9LHiJLuJSgaQmsoh1y8-GMFMryX1arseU_MN9cTBZWzVryxWgYs7anYPySn6ffcavrhJ_z0m00)
+
+### Start client flow
+![PoseCore start flow](http://www.plantuml.com/plantuml/png/PP71QiCm38RlUOgVtlS2FOn2s76miRw0wgYhcMiPIqtOsq_Lp7Qe3Y5A_l_x33weKRVRjQ29SYgPgyMdSv5jck13oQHZTrFkEv3Y_X8_ciTooesgOJT75THQX7v9Zx4tjypI6I-5atMfSDewo8qrbA70q_EWO8yFSmZIdoDIO_MS5-yXhWjENHPAf8QhVaQCYi4kxCwildIcvHjKGSdooiC_OOoZ_irxw63I4ipEsgGgOyjsWVRLAObLaUjP1kFnOBFKoibWWjVtup5wqh7nIILziKNHHTDqyATVnWy0)
+
 ## Broadcasts msgs
 The request message should be formatted as:
 Class found @ src/broadcast/mqtt-srv-info-request.js

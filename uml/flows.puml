@@ -1,0 +1,28 @@
+@startuml posecorestartflow
+
+    actor "user" as user
+    participant "Client app" as client
+    participant "PoseCore Electron server" as pes
+
+    user -> pes : Start PoseCore server app
+        pes -> client: send broadcast response with srv access info
+    alt there is already an active client
+        client -> pes : Connect to MQTT srv or websocket
+    end
+
+@enduml
+
+@startuml poseclientstartflow
+
+    actor "user" as user
+    participant "Client app" as client
+    participant "PoseCore Electron server" as pes
+
+    user -> client : Start client app
+    client -> pes : Send brodacast msg
+    alt there is already an active server
+        pes -> client: send broadcast response with srv access info
+        client -> pes : Connect to MQTT srv or websocket
+    end
+
+@enduml
