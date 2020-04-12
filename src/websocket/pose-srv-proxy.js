@@ -136,9 +136,9 @@ class PoseSrvProxy {
         let poseEvent = new PoseEvent();
         event.keypoints.forEach(elem => {
             if (elem.part === 'leftAnkle') {
-                poseEvent.leftAnkle = this.convertPositionToPercent(elem.position);
+                poseEvent.leftFoot = this.convertPositionToPercent(elem.position);
             } else if (elem.part === 'rightAnkle') {
-                poseEvent.rightAnkle = this.convertPositionToPercent(elem.position);
+                poseEvent.rightFoot = this.convertPositionToPercent(elem.position);
             }
             if (elem.part === 'leftEar') {
                 poseEvent.leftEar = this.convertPositionToPercent(elem.position);
@@ -199,7 +199,8 @@ class PoseSrvProxy {
     convertPositionToPercent(pos) {
         return {
             "x": this.cleanValuePercentage((100*pos.x)/this.videoWidth),
-            "y": 100 - this.cleanValuePercentage((100*pos.y)/this.videoHeight)
+            "y": 100 - this.cleanValuePercentage((100*pos.y)/this.videoHeight),
+            "z": 0  // Posenet doesn't support depth
         };
     }
 
