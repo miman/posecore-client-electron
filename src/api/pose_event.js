@@ -20,7 +20,7 @@ class PoseEvent {
         this.rightElbow = null;
         this.leftWrist = null;
         this.rightWrist = null;
-        this.pelvis = null; // Root
+        this.root = null;
         this.leftHip = null;
         this.rightHip = null;
         this.leftKnee = null;
