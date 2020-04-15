@@ -59,6 +59,23 @@ Class found @ src/broadcast/mqtt-srv-info.js
 }
 ```
 
+# MQTT API
+
+## Topinc naming structure
+
+### Pose-events
+When a new pose is posted it is posted on a topic using the following naming convention:
+Topic name: posetracking/${ClientId}/${DeviceId}/${SessionId}/pose-event
+
+### Pose server settings
+This will post a message with what settings the pose skeleton parser app has
+It is posted on a topic using the following naming convention:
+Topic name: posetracking/${ClientId}/${DeviceId}/${SessionId}/pose-settings
+
+### Topic parts
+DeviceId: The id of the pose skeleton tracking device sending the pose info
+ClientId: The Id of the client that should receive the message (unused for now)
+SessionId: A unique Id for the session this message is part of (unused for now)
 
 # Build & run
 A page describing howto run and build this project can be found [here](operation.md)
