@@ -179,6 +179,14 @@ Whenever a client connects to the MQTT broker it posts a message to this topic, 
 Topic name: **{PayloadProtocol}/posecore/{ClientId}/connected/{ApiVersion}**
 Example: **json/posecore/client-1/connected/1**
 
+Example connected msg:
+```
+{
+    "clientId":"poseclient-f7e062f7-2cf5-4afa-a548-44293116ab38",
+    "srvUrl":"192.168.68.117:1883"
+}
+```
+
 ### Topic parts
 **DeviceId**: The id of the pose skeleton tracking device sending the pose info
 **ClientId**: The Id of the client that should receive the message (unused for now)
