@@ -59,9 +59,109 @@ Class found @ src/broadcast/mqtt-srv-info.js
 }
 ```
 
+## Pose event msg
+Example message:
+
+```
+{
+    "type": "POSE_UPDATE",
+    "version": 1,
+    "sendTime": 1586955667486,
+    "payload": {
+        "nose": {
+            "x": 85.04205027033576,
+            "y": 64.4697651318613,
+            "z": 0
+        },
+        "head": null,
+        "leftEye": {
+            "x": 78.38856172176656,
+            "y": 76.05368403002466,
+            "z": 0
+        },
+        "rightEye": {
+            "x": 93.89490496108552,
+            "y": 74.02164921216074,
+            "z": 0
+        },
+        "leftEar": {
+            "x": 68.75890774490375,
+            "y": 80.90430263004501,
+            "z": 0
+        },
+        "rightEar": {
+            "x": 100,
+            "y": 72.92355098526372,
+            "z": 0
+        },
+        "leftShoulder": {
+            "x": 56.14421813738251,
+            "y": 69.21340335199164,
+            "z": 0
+        },
+        "rightShoulder": {
+            "x": 97.80505351734273,
+            "y": 39.77812334740452,
+            "z": 0
+        },
+        "leftElbow": {
+            "x": 47.54057158015867,
+            "y": 16.00249478561244,
+            "z": 0
+        },
+        "rightElbow": {
+            "x": 100,
+            "y": 0,
+            "z": 0
+        },
+        "leftWrist": {
+            "x": 49.63331058143607,
+            "y": 0,
+            "z": 0
+        },
+        "rightWrist": {
+            "x": 95.30974767392345,
+            "y": 2.1088300856752085,
+            "z": 0
+        },
+        "root": null,
+        "leftHip": {
+            "x": 57.02794592878261,
+            "y": 5.140511766849528,
+            "z": 0
+        },
+        "rightHip": {
+            "x": 80.94621328114088,
+            "y": 0.2277513523827821,
+            "z": 0
+        },
+        "leftKnee": {
+            "x": 53.79379790326991,
+            "y": 1.0338282337650782,
+            "z": 0
+        },
+        "rightKnee": {
+            "x": 69.13462110649205,
+            "y": 0.7424545288085938,
+            "z": 0
+        },
+        "leftFoot": {
+            "x": 53.644592586548136,
+            "y": 0,
+            "z": 0
+        },
+        "rightFoot": {
+            "x": 69.68043894696262,
+            "y": 0,
+            "z": 0
+        }
+    }
+}
+```
+
 # MQTT API
 
-## Topinc naming structure
+## Topic naming structure
 
 ### Pose-events
 When a new pose is posted it is posted on a topic using the following naming convention:
