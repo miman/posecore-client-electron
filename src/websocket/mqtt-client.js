@@ -132,7 +132,7 @@ class MqttConnection {
       type: WS_CLIENT_CONNECTED,
       payload: ccMsg
     };
-    this.sendMsg(msg, 'posetracking/' + this.clientId + '/1/client/connected');
+    this.sendMsg(msg, 'json/posecore/' + this.clientId + '/1/client/connected');
   }
 }
 

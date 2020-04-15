@@ -165,17 +165,25 @@ Example message:
 
 ### Pose-events
 When a new pose is posted it is posted on a topic using the following naming convention:
-Topic name: **posetracking/{ClientId}/{DeviceId}/{SessionId}/pose-event**
+Topic name: **{PayloadProtocol}/posecore/{ClientId}/{DeviceId}/pose-event/{ApiVersion}**
+Example: **json/posecore/local/PosenetClient/pose-event/1**
 
 ### Pose server settings
 This will post a message with what settings the pose skeleton parser app has
 It is posted on a topic using the following naming convention:
-Topic name: **posetracking/{ClientId}/{DeviceId}/{SessionId}/pose-settings**
+Topic name: **{PayloadProtocol}/posecore/{ClientId}/{DeviceId}/pose-settings/{ApiVersion}**
+Example: **json/posecore/local/PosenetClient/pose-settings/1**
+
+### Pose client connected
+Whenever a client connects to the MQTT broker it posts a message to this topic, using the following naming convention:
+Topic name: **{PayloadProtocol}/posecore/{ClientId}/connected/{ApiVersion}**
+Example: **json/posecore/client-1/connected/1**
 
 ### Topic parts
 **DeviceId**: The id of the pose skeleton tracking device sending the pose info
 **ClientId**: The Id of the client that should receive the message (unused for now)
-**SessionId**: A unique Id for the session this message is part of (unused for now)
+**PayloadProtocol**: json for now (planning on going to protobuf)
+**ApiVersion**: Version of the payload for the specific service (1 for now)
 
 # Build & run
 A page describing howto run and build this project can be found [here](operation.md)

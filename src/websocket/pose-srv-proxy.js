@@ -35,6 +35,9 @@ class PoseSrvProxy {
         this.videoHeight = 500;
 
         this.deviceId = 'PosenetClient';
+        this.clientId = 'local';
+        this.poseSettingVersion = 1;
+        this.poseEventVersion = 1;
 
         this.sendPoseServerInitialized = this.sendPoseServerInitialized.bind(this);
         this.sendPoseUpdateToSrv = this.sendPoseUpdateToSrv.bind(this);
@@ -77,7 +80,7 @@ class PoseSrvProxy {
 
         if (this.useMqtt) {
             if (this.mqttClient !== null) {
-                this.mqttClient.sendMsg(msg, 'posetracking/${ClientId}/' + this.deviceId + '/${SessionId}/pose-settings');
+                this.mqttClient.sendMsg(msg, 'json/posecore/' + this.clientId + '/' + this.deviceId + '/pose-settings/' + this.poseSettingVersion);
             }
         }
     }
@@ -117,7 +120,7 @@ class PoseSrvProxy {
 
         if (this.useMqtt) {
             if (this.mqttClient !== null) {
-                this.mqttClient.sendMsg(msg, "posetracking/${ClientId}/" + this.deviceId + "/${SessionId}/pose-event");
+                this.mqttClient.sendMsg(msg, 'json/posecore/' + this.clientId + '/' + this.deviceId + '/pose-event/' + this.poseEventVersion);
             }
         }
     }
