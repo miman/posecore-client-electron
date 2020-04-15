@@ -97,6 +97,7 @@ class MqttConnection {
     } else {
       console.log('onConnectedToMqttSrv: No callback defined');
     }
+    this.mqttClient.subscribe("json/posecore/+/connected/+", {qos:0});
     this.sendClientConnected();
   }
 
@@ -132,7 +133,7 @@ class MqttConnection {
       type: WS_CLIENT_CONNECTED,
       payload: ccMsg
     };
-    this.sendMsg(msg, 'json/posecore/' + this.clientId + '/1/client/connected');
+    this.sendMsg(msg, 'json/posecore/' + this.clientId + '/client/connected/1');
   }
 }
 
