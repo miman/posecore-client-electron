@@ -27,6 +27,11 @@ class PoseEvent {
         this.rightKnee = null;
         this.leftFoot = null;
         this.rightFoot = null;
+
+        /**
+         * TheTo identify the body if there are several visible
+         */
+        this.bodyId = null;
     };
 }
 
