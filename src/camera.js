@@ -50,10 +50,19 @@ function mqqtSrvRunning() {
 poseProxy.connectToMqttSrv();
 }
 
+function getUrlParameter(param) {
+  console.log("window.location.href: " + window.location.href);
+  let n = window.location.href.indexOf(param);
+  let usews = window.location.href.substring(n + param.length + 1);
+  console.log("usews: " + usews);
+  return usews;
+}
+
 let moscaMqttServer = new MoscaMqttServer();
 moscaMqttServer.test('Hejsan');
 moscaMqttServer.setConnectCallbackFn(mqqtSrvRunning);
-moscaMqttServer.startMqttSrv();
+let useWs = getUrlParameter('usews') === 'true';
+moscaMqttServer.startMqttSrv(useWs);
 // While we don't use the local MQTT server right now, we start the MQTT connection regardless
 // mqqtSrvRunning();
 

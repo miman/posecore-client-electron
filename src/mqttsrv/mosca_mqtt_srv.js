@@ -1,9 +1,5 @@
 var mosca = require('mosca');
 
-var settings = {
-    port: 1883
-};
-
 /**
  * This is a websocket class that Implements the logic according for thsi connection to the server.
  */
@@ -13,6 +9,7 @@ class MoscaMqttServer {
      */
     constructor(clientId) {
         this.mqttServer = null;
+        this.mqttSettings = null;
         this.connectCallbackFn = null;
 
         this.setup = this.setup.bind(this);
@@ -22,8 +19,22 @@ class MoscaMqttServer {
         this.startMqttSrv = this.startMqttSrv.bind(this);
     };
 
-    startMqttSrv() {
-        this.mqttServer = new mosca.Server(settings);
+    startMqttSrv(usingWebsocket) {
+        if (usingWebsocket) {
+            this.mqttSettings = {
+                http: {
+                    port: 8883,
+                    bundle: true,
+                    static: './'
+                }
+            };
+        } else {
+            this.mqttSettings = {
+                port: 1883
+            };
+        }
+        console.log("Starting server with settings: " + JSON.stringify(this.mqttSettings));
+        this.mqttServer = new mosca.Server(this.mqttSettings);
 
         this.mqttServer.on('ready', this.setup);
         this.mqttServer.on('clientConnected', this.clientConnected);
