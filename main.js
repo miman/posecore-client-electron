@@ -18,9 +18,6 @@ function createWindow () {
     }
   })
 
-  // Uncomment to display chrome debugger tool
-  mainWindow.webContents.openDevTools();
-
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -29,7 +26,6 @@ function createWindow () {
   }));
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
   if (isDevelopment) {
     mainWindow.webContents.openDevTools();
   }
