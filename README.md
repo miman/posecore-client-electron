@@ -4,6 +4,7 @@
 This application uses the brilliant work by the [PoseNet](https://github.com/tensorflow/tfjs-models/tree/master/posenet) project, and adds a communication layer on top of this to route the poses to external clients so they can use the pose information.
 Ex games, remote presence apps...
 
+
 ## Description of this application/project
 Posenet client native app using electron.
 
@@ -32,3 +33,8 @@ A page describing the API of communicating with this server can be found [here](
 
 # Build & run
 A page describing howto run and build this project can be found [here](operation.md)
+
+# Binary & example games can be found here:
+The binary for this server & example games using the Posecore server can be found here:
+https://sites.google.com/view/posecore/startsida
+
