@@ -38,3 +38,6 @@ A page describing howto run and build this project can be found [here](operation
 The binary for this server & example games using the Posecore server can be found here:
 https://sites.google.com/view/posecore/startsida
 
+# Webcast tutorial
+Below is a link to a webcast tutorial on how to create a Unity application using the PoseCore server to get body tracking data:
+https://youtu.be/OZMrnhCYjgI
