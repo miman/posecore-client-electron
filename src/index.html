@@ -2,30 +2,47 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Posecore server</title>
+    <title>PoseCore server</title>
+    <link rel="stylesheet" href="posecore.css">
   </head>
   <body>
-    <h1>Posecore server</script></h1>
+    <div >
+      <table style="width:100%">
+        <tr>
+          <td>
+            <h1>PoseCore server</h1>
+          </td>
+          <td style="text-align:right">
+            <img src="posecore.png" alt="PoseCore logo" height="48" width="48">
+          </td>
+        </tr>
+      </table>
 
-    <h2>Alternatives</h2>
-    <ul>
-      <li><a href='camera.html?usews=true'>Posecore communication & Posenet server</a></li>
-      <li><a href='mqttsrv-page.html?usews=true'>Posecore communication server</a></li>
-    </ul>
+      <h2>Alternatives</h2>
+      <ul>
+        <li><a href='camera.html?usews=true'>Posecore communication & Posenet server</a></li>
+        <li><a href='mqttsrv-page.html?usews=true'>Posecore communication server</a></li>
+        <li><a href='sysinfo.html'>Posecore server system info</a></li>
+      </ul>
 
-    <p>Posecore communication server = Posecore MQTT srv & broadcasting support to allow autoconnect of clients</p>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using:
-    <ul>
-      <li>Node.js <script>document.write(process.versions.node)</script></li>
-      <li>Chromium <script>document.write(process.versions.chrome)</script></li>
-      <li>and Electron <script>document.write(process.versions.electron)</script></li>
-    </ul>
-    
-    <script>
-      // You can also require other files to run in this process
-      // Add to H1 "- <script>document.write(process.env.npm_package_version)"
-      require('./index.js')
-    </script>
+      <br>
+      <br>
+      <p>The PoseCore server is used to be the central hub when you want to control different applications using your body parts as controller (head, hands, feet...).</p>
+      <p>It can be run in 2 modes, with or without the PoseNet body tracking component</p>
+      <p>It contains 2 parts</p>
+      <ul>
+        <li>A PoseCore communication server over which all body tracking sensors & the clients communicate</li>
+        <li>A PoseNet body tracking component using your local webcamera to fetch your body joint position and send this over the PoseCore communication server</li>
+      </ul>
+      
+      <br>
+      <p>The PoseCore communication server contains both an MQTT srv & a broadcasting support to allow autoconnect of clients</p>
+
+      <script>
+        // You can also require other files to run in this process
+        // Add to H1 "- <script>document.write(process.env.npm_package_version)"
+        require('./index.js')
+      </script>
+    </div>
   </body>
 </html>

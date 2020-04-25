@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Posecore server system info</title>
+      <link rel="stylesheet" href="posecore.css">
+  </head>
+  <body>
+    <div >
+      <table style="width:100%">
+        <tr>
+          <td>
+            <h1>Posecore server system info</h1>
+          </td>
+          <td style="text-align:right">
+            <img src="posecore.png" alt="PoseCore logo" height="48" width="48">
+          </td>
+        </tr>
+      </table>
+
+      <p>PoseCore server version: v<script>document.write(process.env.npm_package_version)</script></p>
+      <!-- All of the Node.js APIs are available in this renderer process. -->
+      We are using:
+      <ul>
+        <li>Node.js <script>document.write(process.versions.node)</script></li>
+        <li>Chromium <script>document.write(process.versions.chrome)</script></li>
+        <li>and Electron <script>document.write(process.versions.electron)</script></li>
+      </ul>
+      
+      <div id="info">
+        <br>
+        <a href='index.html'>Back to main page</a>
+      </div>
+
+      <script>
+      </script>
+    </div>
+  </body>
+</html>
