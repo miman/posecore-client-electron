@@ -18,7 +18,11 @@
         </tr>
       </table>
 
-      <p>PoseCore server version: v<script>document.write(process.env.npm_package_version)</script></p>
+      <p>PoseCore server version: v
+        <script>
+          document.write(require('electron').remote.app.getVersion());
+        </script>
+    </p>
       <!-- All of the Node.js APIs are available in this renderer process. -->
       We are using:
       <ul>
@@ -29,7 +33,7 @@
       
       <div id="info">
         <br>
-        <a href='index.html'>Back to main page</a>
+        <a href='index.html'><- Back to main page</a>
       </div>
 
       <script>

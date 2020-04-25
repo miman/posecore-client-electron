@@ -10,7 +10,11 @@
       <table style="width:100%">
         <tr>
           <td>
-            <h1>PoseCore server</h1>
+            <h1>PoseCore server - 
+              <script>
+                document.write(require('electron').remote.app.getVersion());
+              </script>
+            </h1>
           </td>
           <td style="text-align:right">
             <img src="posecore.png" alt="PoseCore logo" height="48" width="48">
@@ -22,7 +26,6 @@
       <ul>
         <li><a href='camera.html?usews=true'>Posecore communication & Posenet server</a></li>
         <li><a href='mqttsrv-page.html?usews=true'>Posecore communication server</a></li>
-        <li><a href='sysinfo.html'>Posecore server system info</a></li>
       </ul>
 
       <br>
@@ -37,6 +40,9 @@
       
       <br>
       <p>The PoseCore communication server contains both an MQTT srv & a broadcasting support to allow autoconnect of clients</p>
+
+      <br>
+      <a href='sysinfo.html'>Posecore server system info</a>
 
       <script>
         // You can also require other files to run in this process

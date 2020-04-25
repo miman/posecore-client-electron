@@ -1,6 +1,6 @@
 {
   "name": "posecore-srv",
-  "version": "8.1.4",
+  "version": "8.1.5",
   "description": "PoseCore srv with communication server & Posenet client",
   "main": "app/main.js",
   "scripts": {
