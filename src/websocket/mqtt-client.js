@@ -4,11 +4,11 @@ import {
 import ClientConnectedMsg from '../api/client_connected_msg';
 import Client from 'mqtt';
 const uuidv4 = require('uuid/v4');
-import * as util from 'util';
+var fs = require('fs');
 
-// var mqttClient = Client.connect("mqtt://mqtt.thorman.eu:8883",{clientId:"mqttjs01"});
-
-// mqttClient.subscribe("posetracking/user/device-id/pose-event", {qos:0});
+var SECURE_KEY = fs.readFileSync(__dirname + '/../rootCA.key');
+var SECURE_CERT = fs.readFileSync(__dirname + '/../tls-cert.pem');
+var SECURE_CA = [fs.readFileSync(__dirname + '/../rootCA.pem')];
 
 /**
  * This is a websocket class that Implements the logic according for thsi connection to the server.
@@ -41,6 +41,13 @@ class MqttConnection {
   /**
    * Connects to a MQTT srv
    * url example: mqtt://mqtt.thorman.eu:8883
+   * 
+   * 
+      ca: SECURE_CA,
+      key: SECURE_KEY,
+      cert: SECURE_CERT,
+      rejectUnauthorized: false
+   * 
    * @param {The  URL to the MQTT srv} url
    * @param {The  client id} id
    */
@@ -50,7 +57,7 @@ class MqttConnection {
     this.mqttUrl = url;
 
     let options = {
-      clientId: this.clientId
+      clientId: this.clientId,
     };
     if (this.username != null) {
       options.username = this.username;

@@ -29,9 +29,12 @@
     "cross-spawn": "^7.0.1",
     "dat.gui": "^0.7.6",
     "electron-is-dev": "^1.1.0",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
     "ip": "^1.1.5",
     "mosca": "^2.8.3",
     "mqtt": "^2.18.8",
+    "path": "^0.12.7",
     "stats.js": "^0.17.0",
     "uuid": "^3.4.0"
   },

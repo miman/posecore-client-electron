@@ -38,6 +38,10 @@ function mqqtSrvRunning() {
   poseProxy.connectToMqttSrv();
 }
 
+/**
+ * Get the content of the URL parameter with the given name
+ * @param {the URL parameter that we want the value for} param 
+ */
 function getUrlParameter(param) {
   console.log("window.location.href: " + window.location.href);
   let n = window.location.href.indexOf(param);
@@ -56,5 +60,3 @@ moscaMqttServer.startMqttSrv(useWs);
 
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-// kick off the demo
-bindPage();

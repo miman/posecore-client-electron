@@ -1,17 +1,42 @@
 @startuml posecore
 
-Component "Pose client" as client
+Component "PoseCore client(s)" as client
 Component "Computer webcamera" as camera
+Component "External body \ntracking sensor(s)" as ext_sensor
 
-node "Pose Electron Srv" as pes {
-    Component "Pose server" as pose_srv
-    Component "MQTT Srv" as mqtt_srv
-    Component "Broadcast server" as broadcast_srv
+node "PoseCore Server" as pes {
+    package "PoseCore comm srv" as pcs {
+        Component "MQTT Srv" as mqtt_srv
+        Component "Broadcast server" as broadcast_srv
+    }
+    Component "PoseNet sensor" as pose_srv
 }
 
-mqtt_srv -- pose_srv
+mqtt_srv <-- pose_srv
 client -- mqtt_srv: MQTT
 client -- broadcast_srv: UDP Broadcast
 pose_srv -- camera
 
+pcs -left- ext_sensor
+
+@enduml
+
+@startuml posecore-apis
+
+Component "PoseCore client(s)" as client
+
+node "PoseCore Server" as pes {
+    Component "Broadcast server" as broadcast_srv
+    Component "HTTP Srv" as http
+    Component "HTTPS Srv" as https
+    Component "MQTT Srv" as mqtt_srv
+}
+
+client -- mqtt_srv: MQTT over \nTCP:1883
+client -- broadcast_srv: UDP Broadcast
+
+client -- http: MQTT over\n websocket:9080
+client -- https: MQTT over\n websocket:9443
+http -- mqtt_srv: MQTT
+https -- mqtt_srv: MQTT
 @enduml
