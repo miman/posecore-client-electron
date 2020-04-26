@@ -16,7 +16,7 @@ This is done over UDP broadcasting.
 The server listens to broadcasts requests on the port 45458 and will publish MQTT/webcast information on the brodcast port 45459 whenever a request has been received on the port 45458 or at application startup.
 
 ## System overview
-![PoseCore overview](http://www.plantuml.com/plantuml/png/RP0z3eCm38Ltdy9YvmATK7_6IbIbSnM2XqeaeOwXGzMxDm524Mecs-_pUueBBugbDorspfDsJ007PpfdoGfcPHYYRX-XoL3vkLmJiUo565zKQsM8rGXE9O1r3SqsfvQqiBDuvM5aElBu1Wnlc-Y91-892ltTyx3bpfUgMfpCK-GVj6Ud6gsyh1thD1mtFW1f6_Fy5pVzD8wIlCEOkHAIqQpUZYKkWP2C8fYEKP1jmgc_)
+![PoseCore overview](http://www.plantuml.com/plantuml/png/RP7FJiCm3CRlVWfh9pZq1H27YS4HDBHnGvhIr4mJJL9iRmoXlJlkdsn1Maxfvv_Zhv_deevr7rhiaf1FJ02B5BeKAIhEbYOkJ4JVxaouaTiPEfc-Ih2_xfKOlwdsBX2x4Hok9VXqD2gw5klK_E1xL7R-SnUtA1GbSPv0HzsC2a1C3HLMLiG7ue7gIF0Nq4vdhxXjYVaK0WeVHj1di3-5dUVNzHfN4nM-L3VMSWryuEGQxqHHBlFhB9wxJb3qvGHVIAVV6ysOD3IS0F98lA-gIs7C5qtAzJlidHQ5ShHLtnwNUBO8-I43ymgWZw1gwKEhV-7EAJQs_Zy0)
 
 ps.
 image links for diagrams created using the PlantUml onlie editor [here](http://www.plantuml.com/plantuml/uml/SoWkIImgAStDuShBJqbLA4ajBk5oICrB0Oe00000)
